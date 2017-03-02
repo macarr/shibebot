@@ -36,7 +36,7 @@ class ProcessTweet(StreamListener):
 		tweet = json.loads(data.strip())
 
 		screenName = tweet.get('user',{}).get('screen_name')
-		commonUtils.log_info(str(commonUtils.timestamp()) + ": TWEET FROM: " + str(screenName) + " || LOOKING FOR: " + str(username))
+		commonUtils.log_info("TWEET FROM: " + str(screenName) + " || LOOKING FOR: " + str(username))
 		if screenName == username:
 			commonUtils.log_info("found one!")
 			url = extract_url(tweet)

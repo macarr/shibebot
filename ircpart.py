@@ -3,11 +3,6 @@ import socket
 import commonUtils
 import re
 
-server = ""
-channel = ""
-botnick = ""
-tweetQueue = None
-
 def setServer(server):
 	self.server = server
 

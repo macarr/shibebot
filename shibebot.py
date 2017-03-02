@@ -13,10 +13,11 @@ def main():
 	ircServ = "irc.nervesocket.com"
 	channel = "#lobby"
 	botNick = "shibebot"
+	username = "shibsbot"
 
 	tweetQueue = Queue()
 
-	twitterThread = twitterpart.TwitterThread(1, "Twitter", tweetQueue)
+	twitterThread = twitterpart.TwitterThread(1, "Twitter", tweetQueue, username)
 	ircThread = ircpart.IRCThread(2, "IRC", ircServ, channel, botNick, tweetQueue)
 
 

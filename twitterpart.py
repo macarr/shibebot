@@ -8,8 +8,6 @@ import json
 import ConfigParser
 import threading
 
-tweetQueue = None;
-
 #return an api object for twitter
 def get_api(cfg):
 	auth = OAuthHandler(cfg['consumer_key'], cfg['consumer_secret'])
@@ -36,8 +34,8 @@ class ProcessTweet(StreamListener):
 		tweet = json.loads(data.strip())
 
 		screenName = tweet.get('user',{}).get('screen_name')
-		commonUtils.log_info("TWEET FROM: " + str(screenName) + " || LOOKING FOR: " + str(username))
-		if screenName == username:
+		commonUtils.log_info("TWEET FROM: " + str(screenName) + " || LOOKING FOR: " + str(self.username))
+		if screenName == self.username:
 			commonUtils.log_info("found one!")
 			url = extract_url(tweet)
 			commonUtils.log_info(url)
@@ -51,11 +49,12 @@ class ProcessTweet(StreamListener):
 		commonUtils.log_error(str(status))
 
 class TwitterThread(threading.Thread):
-	def __init__(self, threadID, name, tweetQueue):
+	def __init__(self, threadID, name, tweetQueue, username):
 		threading.Thread.__init__(self)
 		self.threadID = threadID
 		self.name = name
 		self.tweetQueue = tweetQueue
+		self.username = username
 
 	def run(self):
 		commonUtils.log_info(" Starting "+ self.name)
